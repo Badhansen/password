@@ -4,12 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:password"
-             xmlns:viewModels="clr-namespace:password.ViewModels"
+             xmlns:viewModels="clr-namespace:password.ViewModels" 
+             d:DataContext="{d:DesignInstance Type=viewModels:RegistrationViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
         <Grid Margin="10 10 10 10" IsSharedSizeScope="True" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -57,18 +59,48 @@
                      Text="{Binding Email}" />
 
             <TextBlock Text="Password:" Grid.Row="3" Margin="10 10 10 10" VerticalAlignment="Center" FontSize="14" FontWeight="Regular" />
-            <PasswordBox x:Name="TextBoxPassword" 
+            <TextBox x:Name="TextBoxPassword" 
                          Grid.Row="3" 
                          Grid.Column="1" 
                          Margin="10 10 10 10" 
-                         Width="Auto"/>
+                         Width="Auto"
+                         Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Grid Grid.Row="4" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <!-- Length validator check -->
+                <Image Grid.Row="0" Grid.Column="0" Source="{Binding LengthMark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <TextBlock Text="Password must be at least 8 characters long." Grid.Row="0" Grid.Column="1" FontSize="12" FontWeight="Thin" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                
+                <!-- Upper Case validator check -->
+                <Image Grid.Row="1" Grid.Column="0" Source="{Binding UpperCaseMark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="At least one capital letter must be in the password." FontSize="12" FontWeight="Thin" HorizontalAlignment="left" VerticalAlignment="Center"/>
 
-            <TextBlock Grid.Row="4" Text="Confirm Password:" Margin="10 10 10 10" VerticalAlignment="Center" FontSize="14" FontWeight="Regular" />
-            <PasswordBox x:Name="TextBoxConfirmPassword" 
-                         Grid.Row="4" 
+                <!-- Lower Case validator check -->
+                <Image Grid.Row="2" Grid.Column="0" Source="{Binding LowerCaseMark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="At least one small letter must be in the password." FontSize="12" FontWeight="Thin" HorizontalAlignment="left" VerticalAlignment="Center"/>
+
+                <!-- Special Character validator check -->
+                <Image Grid.Row="3" Grid.Column="0" Source="{Binding SpecialCharacterMark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="At least one special letter must be in the password." FontSize="12" FontWeight="Thin" HorizontalAlignment="left" VerticalAlignment="Center" />
+
+            </Grid>
+
+            <TextBlock Grid.Row="5" Text="Confirm Password:" Margin="10 10 10 10" VerticalAlignment="Center" FontSize="14" FontWeight="Regular" />
+            <TextBox x:Name="TextBoxConfirmPassword" 
+                         Grid.Row="5" 
                          Grid.Column="1" 
                          Margin="10 10 10 10" 
-                         Width="Auto"/>
+                         Width="Auto"
+                         Text="{Binding ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         </Grid>
         <Button Margin="10 10 10 10" Content="Register" 

@@ -25,7 +25,7 @@ namespace password.Commands
 
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(RegistrationViewModel.FirstName))
+            if (e.PropertyName == nameof(RegistrationViewModel.ConfirmPassword))
             {
                 OnCanExecutedChanged();
             }
@@ -33,8 +33,9 @@ namespace password.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return !string.IsNullOrEmpty(_registrationViewModel.FirstName) &&
-                base.CanExecute(parameter);
+            return _registrationViewModel.validationCheckingStatus
+                && _registrationViewModel.Password.Equals(_registrationViewModel.ConfirmPassword)
+                && base.CanExecute(parameter);
         }
         public override void Execute(object? parameter)
         {

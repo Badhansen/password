@@ -1,4 +1,5 @@
-﻿using password.Stores;
+﻿using password.Models;
+using password.Stores;
 using password.ViewModels;
 using System;
 using System.Collections.Generic;

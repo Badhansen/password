@@ -1,16 +1,20 @@
 ﻿using password.Commands;
 using password.Services;
+using password.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace password.ViewModels
 {
     public class RegistrationViewModel : ViewModelBase
     {
+        public BasePasswordValidator validator;
+        public bool validationCheckingStatus = false;
         private string _fristName;
         public string FirstName
         {
@@ -39,6 +43,7 @@ namespace password.ViewModels
             {
                 _password = value;
                 OnPropertyChanged(nameof(Password));
+                validationCheckingStatus = validator.Validate(Password);
             }
         }
         private string _confirmPassword;
@@ -51,11 +56,121 @@ namespace password.ViewModels
                 OnPropertyChanged(nameof(ConfirmPassword));
             }
         }
+
+        private static readonly string _accepted = "pack://application:,,,/Assets/Accepted.png";
+        private static readonly string _rejected = "pack://application:,,,/Assets/Rejected.png";
+        
+        private string _lengthMark;
+        public string LengthMark
+        {
+            get => _lengthMark;
+            set
+            {
+                _lengthMark = value;
+                OnPropertyChanged(nameof(LengthMark));
+            }
+        }
+        private string _upperCaseMark;
+        public string UpperCaseMark
+        {
+            get => _upperCaseMark;
+            set
+            {
+                _upperCaseMark = value;
+                OnPropertyChanged(nameof(UpperCaseMark));
+            }
+        }
+        private string _lowerCaseMark;
+        public string LowerCaseMark
+        {
+            get => _lowerCaseMark;
+            set
+            {
+                _lowerCaseMark = value;
+                OnPropertyChanged(nameof(LowerCaseMark));
+            }
+        }
+        private string _specialCharacterMark;
+        public string SpecialCharacterMark
+        {
+            get => _specialCharacterMark;
+            set
+            {
+                _specialCharacterMark = value;
+                OnPropertyChanged(nameof(SpecialCharacterMark));
+            }
+        }
         public ICommand RegisterCommand { get; }
         public RegistrationViewModel(NavigationService reservationViewNavigationService) 
         {
             RegisterCommand = new RegistrationCommand(this, reservationViewNavigationService);
+            validator = new LengthValidator(8);
+            var upperCaseValidator = new UpperCaseValidator();
+            var lowerCaseValidator = new LowerCaseValidator();
+            var specialCaseValidator = new SpecialCharacterValidator();
+            validator.SetNextValidator(upperCaseValidator)
+                .SetNextValidator(lowerCaseValidator)
+                .SetNextValidator(specialCaseValidator);
+
+            validator.ValidationEvent += OnValidationUpdate;
+            upperCaseValidator.ValidationEvent += OnValidationUpdate;
+            lowerCaseValidator.ValidationEvent += OnValidationUpdate;
+            specialCaseValidator.ValidationEvent += OnValidationUpdate;
+
+            LengthMark = _rejected;
+            UpperCaseMark = _rejected;
+            LowerCaseMark = _rejected;
+            SpecialCharacterMark = _rejected;
         }
+
+        private void OnValidationUpdate(object? sender, PasswordValidationEventArgs e)
+        {
+            if (e.ValidatorName == "LengthValidator")
+            {
+                if (e.IsValid)
+                {
+                    LengthMark = _accepted;
+                }
+                else
+                {
+                    LengthMark = _rejected;
+                }
+            }
+            if (e.ValidatorName == "UpperCaseValidator")
+            {
+                if (e.IsValid)
+                {
+                    UpperCaseMark = _accepted;
+                }
+                else
+                {
+                    UpperCaseMark = _rejected;
+                }
+            }
+            if (e.ValidatorName == "LowerCaseValidator")
+            {
+                if (e.IsValid)
+                {
+                    LowerCaseMark = _accepted;
+                }
+                else
+                {
+                    LowerCaseMark = _rejected;
+                }
+            }
+            if (e.ValidatorName == "SpecialCharacterValidator")
+            {
+                if (e.IsValid)
+                {
+                    SpecialCharacterMark = _accepted;
+                }
+                else
+                {
+                    SpecialCharacterMark = _rejected;
+                }
+            }
+        }
+
         public override void Dispose()
         {
             base.Dispose();
