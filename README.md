@@ -21,3 +21,19 @@ Chain of Responsibility design pattern.
 Successfully registered.
 
 ![Success Page](https://github.com/Badhansen/password/blob/master/Images/Success.png?raw=true)
+
+---
+
+## System Requirements
+
+* Windows 8 or later
+* Visual Studio 2022 or later (for Windows only)
+* .NET 6 SDK or later
+
+## Installation
+
+- Install the latest version of Visual Studio 2022 or Visual Studio for Mac.
+- Install the latest version of the .NET 6 SDK.
+- Clone this Repository: `git clone https://github.com/Badhansen/password.git`
+- **Open the Project in Visual Studio:** Once the repository is cloned, navigate to the directory where it was cloned using the terminal or file explorer. Inside this directory, you should find the files of your WPF application. Locate the solution file (usually ends with `.sln` extension) and double-click on it to open the project in Visual Studio.
+- Build and Run the Application
