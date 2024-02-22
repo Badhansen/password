@@ -8,12 +8,11 @@ A simple WPF application that allows the user to register details and simulate t
     3. Implemented the Chain of Responsibility design pattern.
 
 ## Overview
-![Front Page](https://github.com/Badhansen/password/tree/master/Images/FrontPage.png)
+![Front Page](https://github.com/Badhansen/password/tree/master/Images/FrontPage.png?raw=true)
 
 ---
 
-![CRP Page](https://github.com/Badhansen/password/tree/master/Images/CRP.png)
+![CRP Page](https://github.com/Badhansen/password/tree/master/Images/CRP.png?raw=true)
 
 ---
-![Success Page](https://github.com/Badhansen/password/tree/master/Images/Success.png)
-!
+![Success Page](https://github.com/Badhansen/password/tree/master/Images/Success.png?raw=true)
