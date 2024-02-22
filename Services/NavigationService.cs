@@ -23,5 +23,13 @@ namespace password.Services
         {
             _navigationStore.CurrentViewModel = _createViewModel();
         }
+        public void SetParameter(string key, object value)
+        {
+            _navigationStore.SetParameter(key, value);
+        }
+        public object GetParameter(string key)
+        {
+            return _navigationStore.GetParameter(key);
+        }
     }
 }

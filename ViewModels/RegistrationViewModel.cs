@@ -1,12 +1,6 @@
 ﻿using password.Commands;
 using password.Services;
 using password.Validators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace password.ViewModels
@@ -15,6 +9,8 @@ namespace password.ViewModels
     {
         public BasePasswordValidator validator;
         public bool validationCheckingStatus = false;
+        private NavigationService _navigationService;
+
         private string _fristName;
         public string FirstName
         {
@@ -23,6 +19,7 @@ namespace password.ViewModels
             {
                 _fristName = value;
                 OnPropertyChanged(nameof(FirstName));
+                _navigationService.SetParameter("Name", value);
             }
         }
         private string _lastName;
@@ -103,6 +100,7 @@ namespace password.ViewModels
         public ICommand RegisterCommand { get; }
         public RegistrationViewModel(NavigationService reservationViewNavigationService) 
         {
+            _navigationService = reservationViewNavigationService;
             RegisterCommand = new RegistrationCommand(this, reservationViewNavigationService);
             validator = new LengthValidator(8);
             var upperCaseValidator = new UpperCaseValidator();

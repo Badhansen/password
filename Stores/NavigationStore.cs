@@ -9,6 +9,7 @@ namespace password.Stores
 {
     public class NavigationStore
     {
+        private readonly Dictionary<string, object> _parameters = new Dictionary<string, object>();
         private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel
         {
@@ -24,6 +25,14 @@ namespace password.Stores
         private void OnCurrentViewModelChanged()
         {
             CurrentViewModelChanged?.Invoke();
+        }
+        public void SetParameter(string key, object value)
+        {
+            _parameters[key] = value;
+        }
+        public object GetParameter(string key)
+        {
+            return _parameters.ContainsKey(key) ? _parameters[key] : null;
         }
     }
 }

@@ -1,21 +1,30 @@
-﻿using password.Commands;
-using password.Services;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using NavigationService = password.Services.NavigationService;
 
 namespace password.ViewModels
 {
     public class SuccessViewModel : ViewModelBase
     {
-        public ICommand RegistrationCommand { get; }
+        private NavigationService _navigationService;
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+        public void LoadData()
+        {
+            var parameter = _navigationService.GetParameter("Name");
+            Name = (string)parameter;
+        }
+
         public SuccessViewModel(NavigationService registrationNavigationService)
         {
-            RegistrationCommand = new NavigateCommand(registrationNavigationService);
+            _navigationService = registrationNavigationService;
+            LoadData();
         }
     }
 }

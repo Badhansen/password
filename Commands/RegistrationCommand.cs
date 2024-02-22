@@ -41,7 +41,6 @@ namespace password.Commands
         {
             try
             {
-                MessageBox.Show("Successfully Registration Completed", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 _registrationViewNavigationService.Navigate();
             }
             catch (Exception)
