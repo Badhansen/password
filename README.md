@@ -36,7 +36,7 @@ Successfully registered.
 
 ## Installation
 
-- Install the latest version of Visual Studio 2022 or Visual Studio for Mac.
+- Install the latest version of Visual Studio 2022 (Windows only).
 - Install the latest version of the .NET 6 SDK.
 - Clone this Repository: `git clone https://github.com/Badhansen/password.git`
 - **Open the Project in Visual Studio:** Once the repository is cloned, navigate to the directory where it was cloned using the terminal or file explorer. Inside this directory, you should find the files of your WPF application. Locate the solution file (usually ends with `.sln` extension) and double-click on it to open the project in Visual Studio.
